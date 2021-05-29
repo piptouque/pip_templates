@@ -1,8 +1,6 @@
 # required variable :
 #     PROJECT_NAME : name of the current project.
 
-set(${PROJECT_NAME}_CXX_STANDARD 20)
-
 set(IS_GNU OFF)
 set(IS_MSVC OFF)
 set(IS_CLANG OFF)
