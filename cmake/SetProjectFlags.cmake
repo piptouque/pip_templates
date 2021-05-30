@@ -19,7 +19,7 @@ if (${IS_GNU} OR ${IS_CLANG})
             "-fPIC"
             "-Werror"
             "-Wall"
-            "-pedantic"
+            # "-pedantic"
             "-Wextra"
             "-Wshadow"
             "-Wnon-virtual-dtor"
