@@ -13,17 +13,7 @@ elseif (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
     set(IS_CLANG ON)
 endif ()
 
-if (CMAKE_BUILD_TYPE STREQUAL 'Release')
-    set(${PROJECT_NAME}_OPTIMISATION ON)
-else ()
-    set(${PROJECT_NAME}_OPTIMISATION OFF)
-endif ()
-
-
 if (${IS_GNU} OR ${IS_CLANG})
-    if (${${PROJECT_NAME}_OPTIMISATION})
-        set(${PROJECT_NAME}_OPTIMISATION_LEVEL "-O3")
-    endif ()
     ## -Warray-bounds is clang-only I think?
     set(${PROJECT_NAME}_CXX_FLAGS
             "-fPIC"
@@ -37,7 +27,7 @@ if (${IS_GNU} OR ${IS_CLANG})
             "-Wold-style-cast"
             "-Wimplicit-fallthrough=5"
             "-Wconversion"
-            ${${PROJECT_NAME}_OPTIMISATION_LEVEL}
+            "$<$<CONFIG:RELEASE>:-O3>"
             )
 elseif (${IS_MSVC})
     if (${${PROJECT_NAME}_OPTIMISATION})
@@ -50,14 +40,12 @@ elseif (${IS_MSVC})
             "/w14640"
             "/permissive"
             "/w14242"
-            "/w14254"
-            "/w14263"
             "/w14265"
             "/w14287"
-            ${${PROJECT_NAME}_OPTIMISATION_LEVEL}
+            "$<$<CONFIG:RELEASE>:/O3>"
             )
 else ()
-    message(ERROR "Nope!")
+    message(ERROR "Unsupported compiler: " ${CMAKE_CXX_COMPILER_ID})
 endif ()
 
 
